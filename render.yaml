@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: workflow-capture-replay
+    runtime: python
+    plan: starter
+    buildCommand: pip install --requirement requirements-api.lock && npm ci --no-audit --no-fund && npm run portal:build
+    startCommand: PYTHONPATH=apps/api/src:packages/protocol/src python -m uvicorn workflow_api.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.15
+      - key: NODE_VERSION
+        value: 20.12.1
+      - key: WORKFLOW_API_DATABASE
+        value: /var/data/workflow.sqlite3
+      - key: WORKFLOW_API_ARTIFACTS
+        value: /var/data/artifacts
+    disk:
+      name: workflow-data
+      mountPath: /var/data
+      sizeGB: 1

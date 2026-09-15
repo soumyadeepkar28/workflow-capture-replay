@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Preparing demo session</title>
+    <style>
+      body { font: 16px/1.5 ui-sans-serif, sans-serif; margin: 3rem; color: #17202a; }
+      [role="alert"] { color: #922b21; }
+    </style>
+  </head>
+  <body>
+    <p id="status">Preparing the local demo session...</p>
+    <form id="session-form" method="post" action="{% url 'workflow_session_consume' %}">
+      {% csrf_token %}
+      <input id="ticket" name="ticket" type="hidden">
+    </form>
+    <script>
+      const fragment = new URLSearchParams(window.location.hash.slice(1));
+      const ticket = fragment.get("ticket");
+      window.history.replaceState(null, "", window.location.pathname);
+      if (ticket) {
+        document.getElementById("ticket").value = ticket;
+        document.getElementById("session-form").submit();
+      } else {
+        const status = document.getElementById("status");
+        status.textContent = "This demo-session link is missing or expired.";
+        status.setAttribute("role", "alert");
+      }
+    </script>
+  </body>
+</html>

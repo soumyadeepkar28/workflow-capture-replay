@@ -1,0 +1,779 @@
+{
+  "$defs": {
+    "CaptureProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "captured_at": {
+          "format": "date-time",
+          "title": "Captured At",
+          "type": "string"
+        },
+        "completeness": {
+          "const": "complete",
+          "title": "Completeness",
+          "type": "string"
+        },
+        "document_count": {
+          "maximum": 50,
+          "minimum": 1,
+          "title": "Document Count",
+          "type": "integer"
+        },
+        "event_count": {
+          "maximum": 1000,
+          "minimum": 1,
+          "title": "Event Count",
+          "type": "integer"
+        },
+        "extension_version": {
+          "maxLength": 40,
+          "minLength": 1,
+          "title": "Extension Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "extension_version",
+        "captured_at",
+        "document_count",
+        "event_count",
+        "completeness"
+      ],
+      "title": "CaptureProvenance",
+      "type": "object"
+    },
+    "ClickAction": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "maxLength": 68,
+          "minLength": 16,
+          "pattern": "^act_[a-z0-9_-]+$",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "expected_page_after": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PageIdentity"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "kind": {
+          "const": "click",
+          "title": "Kind",
+          "type": "string"
+        },
+        "locator": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/RoleLocator"
+            },
+            {
+              "$ref": "#/$defs/LabelLocator"
+            }
+          ],
+          "title": "Locator"
+        },
+        "page": {
+          "$ref": "#/$defs/PageIdentity"
+        },
+        "sequence": {
+          "exclusiveMaximum": 200,
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "action_id",
+        "sequence",
+        "page",
+        "locator",
+        "kind"
+      ],
+      "title": "ClickAction",
+      "type": "object"
+    },
+    "ElementFingerprint": {
+      "additionalProperties": false,
+      "properties": {
+        "element_id": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Element Id"
+        },
+        "field_name": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field Name"
+        },
+        "input_type": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Type"
+        },
+        "observed_role": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed Role"
+        },
+        "tag": {
+          "maxLength": 40,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "title": "Tag",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tag"
+      ],
+      "title": "ElementFingerprint",
+      "type": "object"
+    },
+    "FillAction": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "maxLength": 68,
+          "minLength": 16,
+          "pattern": "^act_[a-z0-9_-]+$",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "fill",
+          "title": "Kind",
+          "type": "string"
+        },
+        "locator": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/RoleLocator"
+            },
+            {
+              "$ref": "#/$defs/LabelLocator"
+            }
+          ],
+          "title": "Locator"
+        },
+        "page": {
+          "$ref": "#/$defs/PageIdentity"
+        },
+        "sequence": {
+          "exclusiveMaximum": 200,
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "value": {
+          "maxLength": 2000,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action_id",
+        "sequence",
+        "page",
+        "locator",
+        "kind",
+        "value"
+      ],
+      "title": "FillAction",
+      "type": "object"
+    },
+    "LabelLocator": {
+      "additionalProperties": false,
+      "properties": {
+        "fallback": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ElementFingerprint"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "label": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocatorScope"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "strategy": {
+          "const": "label",
+          "title": "Strategy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "strategy",
+        "label"
+      ],
+      "title": "LabelLocator",
+      "type": "object"
+    },
+    "LocatorScope": {
+      "additionalProperties": false,
+      "properties": {
+        "element_id": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Element Id"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "role": {
+          "enum": [
+            "form",
+            "tabpanel",
+            "region"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role"
+      ],
+      "title": "LocatorScope",
+      "type": "object"
+    },
+    "NavigateAction": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "maxLength": 68,
+          "minLength": 16,
+          "pattern": "^act_[a-z0-9_-]+$",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "destination": {
+          "$ref": "#/$defs/PageIdentity"
+        },
+        "kind": {
+          "const": "navigate",
+          "title": "Kind",
+          "type": "string"
+        },
+        "sequence": {
+          "exclusiveMaximum": 200,
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "action_id",
+        "sequence",
+        "kind",
+        "destination"
+      ],
+      "title": "NavigateAction",
+      "type": "object"
+    },
+    "PageIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": "^/[A-Za-z0-9_./-]*$",
+          "title": "Path",
+          "type": "string"
+        },
+        "query": {
+          "default": "",
+          "maxLength": 1000,
+          "title": "Query",
+          "type": "string"
+        },
+        "record_ref": {
+          "anyOf": [
+            {
+              "enum": [
+                "review",
+                "completion"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Record Ref"
+        },
+        "target_alias": {
+          "const": "helpdesk-demo",
+          "title": "Target Alias",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_alias",
+        "path"
+      ],
+      "title": "PageIdentity",
+      "type": "object"
+    },
+    "ReloadAction": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "maxLength": 68,
+          "minLength": 16,
+          "pattern": "^act_[a-z0-9_-]+$",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "reload",
+          "title": "Kind",
+          "type": "string"
+        },
+        "page": {
+          "$ref": "#/$defs/PageIdentity"
+        },
+        "sequence": {
+          "exclusiveMaximum": 200,
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "action_id",
+        "sequence",
+        "kind",
+        "page"
+      ],
+      "title": "ReloadAction",
+      "type": "object"
+    },
+    "RoleLocator": {
+      "additionalProperties": false,
+      "properties": {
+        "fallback": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ElementFingerprint"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "name": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "button",
+            "link",
+            "tab",
+            "menuitem",
+            "radio",
+            "checkbox"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocatorScope"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "strategy": {
+          "const": "role",
+          "title": "Strategy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "strategy",
+        "role",
+        "name"
+      ],
+      "title": "RoleLocator",
+      "type": "object"
+    },
+    "SelectAction": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "maxLength": 68,
+          "minLength": 16,
+          "pattern": "^act_[a-z0-9_-]+$",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "fixture_ref": {
+          "anyOf": [
+            {
+              "const": "actor",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fixture Ref"
+        },
+        "kind": {
+          "const": "select",
+          "title": "Kind",
+          "type": "string"
+        },
+        "locator": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/RoleLocator"
+            },
+            {
+              "$ref": "#/$defs/LabelLocator"
+            }
+          ],
+          "title": "Locator"
+        },
+        "observed_value": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed Value"
+        },
+        "option_label": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Option Label",
+          "type": "string"
+        },
+        "page": {
+          "$ref": "#/$defs/PageIdentity"
+        },
+        "sequence": {
+          "exclusiveMaximum": 200,
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "action_id",
+        "sequence",
+        "page",
+        "locator",
+        "kind",
+        "option_label"
+      ],
+      "title": "SelectAction",
+      "type": "object"
+    },
+    "SetCheckedAction": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "maxLength": 68,
+          "minLength": 16,
+          "pattern": "^act_[a-z0-9_-]+$",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "checked": {
+          "title": "Checked",
+          "type": "boolean"
+        },
+        "kind": {
+          "const": "set_checked",
+          "title": "Kind",
+          "type": "string"
+        },
+        "locator": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/RoleLocator"
+            },
+            {
+              "$ref": "#/$defs/LabelLocator"
+            }
+          ],
+          "title": "Locator"
+        },
+        "page": {
+          "$ref": "#/$defs/PageIdentity"
+        },
+        "sequence": {
+          "exclusiveMaximum": 200,
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "action_id",
+        "sequence",
+        "page",
+        "locator",
+        "kind",
+        "checked"
+      ],
+      "title": "SetCheckedAction",
+      "type": "object"
+    },
+    "VerificationProfileRef": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "profile_id": {
+          "const": "helpdesk-linked-tickets-v1",
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "profile_id",
+        "version",
+        "content_hash"
+      ],
+      "title": "VerificationProfileRef",
+      "type": "object"
+    }
+  },
+  "$id": "https://workflow-capture-replay.example/schemas/workflow-definition-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actions": {
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/NavigateAction"
+          },
+          {
+            "$ref": "#/$defs/ReloadAction"
+          },
+          {
+            "$ref": "#/$defs/ClickAction"
+          },
+          {
+            "$ref": "#/$defs/FillAction"
+          },
+          {
+            "$ref": "#/$defs/SelectAction"
+          },
+          {
+            "$ref": "#/$defs/SetCheckedAction"
+          }
+        ]
+      },
+      "maxItems": 200,
+      "minItems": 1,
+      "title": "Actions",
+      "type": "array"
+    },
+    "capture": {
+      "$ref": "#/$defs/CaptureProvenance"
+    },
+    "category": {
+      "default": "Linked-ticket resolution",
+      "maxLength": 80,
+      "minLength": 1,
+      "title": "Category",
+      "type": "string"
+    },
+    "category_id": {
+      "anyOf": [
+        {
+          "maxLength": 68,
+          "minLength": 12,
+          "pattern": "^cat_[a-z0-9_-]+$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Category Id"
+    },
+    "content_hash": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "description": {
+      "default": "",
+      "maxLength": 500,
+      "title": "Description",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "enum": [
+        1,
+        2,
+        3
+      ],
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "target_alias": {
+      "const": "helpdesk-demo",
+      "title": "Target Alias",
+      "type": "string"
+    },
+    "verification_profile": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/VerificationProfileRef"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "workflow_id": {
+      "maxLength": 67,
+      "minLength": 15,
+      "pattern": "^wf_[a-z0-9_-]+$",
+      "title": "Workflow Id",
+      "type": "string"
+    },
+    "workflow_mode": {
+      "default": "verified_preset",
+      "enum": [
+        "verified_preset",
+        "general"
+      ],
+      "title": "Workflow Mode",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "workflow_id",
+    "created_at",
+    "name",
+    "target_alias",
+    "capture",
+    "verification_profile",
+    "actions",
+    "content_hash"
+  ],
+  "title": "WorkflowDefinition",
+  "type": "object"
+}

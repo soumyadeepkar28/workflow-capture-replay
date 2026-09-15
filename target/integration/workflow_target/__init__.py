@@ -1,0 +1,1 @@
+"""Local-only integration overlay for the pinned Django Helpdesk target."""

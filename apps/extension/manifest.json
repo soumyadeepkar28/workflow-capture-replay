@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Workflow Replay Recorder",
+  "description": "Records bounded browser actions for the local Helpdesk demonstration.",
+  "version": "0.1.0",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5clOpxIXB5+Ku7gjXbZVch1vtk159UUT5kQ+TfmaIA2UoUbUwZTOTa9hicpTfvs9heJ4NfOQP0fe1KoxaxmqSRYKN+U2p9KehV3rj/fbR/wB19PNuxRAD0Rg+WQfzOOgGX+gUoNBOxk15lA4nD7HdQ515g+oOO/RDKvJBiQSSZXvdFfBWd8f5aVPfTcdWeQbcXflcKLb5ejSez4ZbztUZbEv9vDTAIDDnkrmtSrDIakqCU8ey+G2sJpwyH7jmOiuJuyoESGo955wl0i3jlvmqhtGRfaJqZLi//vh9DvoalmOcIqXnSr5hxg8RKdZbBu31ZX00/4s/YUW4nnRbUIZOQIDAQAB",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Workflow Replay Recorder"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://127.0.0.1/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "externally_connectable": {
+    "matches": ["http://127.0.0.1/*"]
+  }
+}

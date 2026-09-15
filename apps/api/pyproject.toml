@@ -1,0 +1,15 @@
+[project]
+name = "workflow-api"
+version = "0.1.0"
+description = "Public API for browser workflow capture and replay"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "fastapi>=0.116,<1",
+    "pydantic>=2.11,<3",
+    "uvicorn>=0.35,<1",
+    "workflow-protocol",
+]
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"

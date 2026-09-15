@@ -1,0 +1,19 @@
+{
+  "name": "@workflow/extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@workflow/protocol": "0.1.0",
+    "dom-accessibility-api": "0.7.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.287",
+    "esbuild": "0.24.2",
+    "typescript": "5.6.3"
+  }
+}

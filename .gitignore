@@ -1,0 +1,23 @@
+.github/
+workflow_capture_replay_candidate_brief (3).pdf
+HLD.md
+LLD.md
+IMPLEMENTATION_DIAGRAMS.md
+AI_USAGE.md
+EVALS.md
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+node_modules/
+dist/
+coverage/
+.local/
+artifacts/
+*.db
+*.sqlite3
+*.sqlite3-*
+*.pid

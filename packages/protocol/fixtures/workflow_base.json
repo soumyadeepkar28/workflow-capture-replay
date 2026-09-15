@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "workflow_id": "wf_example000001",
+  "created_at": "2026-09-14T12:00:00Z",
+  "name": "Resolve linked tickets",
+  "description": "Resolve Review before Completion.",
+  "target_alias": "helpdesk-demo",
+  "capture": {
+    "extension_version": "0.1.0",
+    "captured_at": "2026-09-14T11:55:00Z",
+    "document_count": 1,
+    "event_count": 2,
+    "completeness": "complete"
+  },
+  "verification_profile": {
+    "profile_id": "helpdesk-linked-tickets-v1",
+    "version": 1,
+    "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "actions": [
+    {
+      "kind": "fill",
+      "action_id": "act_example000001",
+      "sequence": 0,
+      "page": {
+        "target_alias": "helpdesk-demo",
+        "path": "/tickets/4/",
+        "record_ref": "review"
+      },
+      "locator": {
+        "strategy": "label",
+        "label": "Comment / Resolution",
+        "fallback": {
+          "tag": "textarea",
+          "element_id": "commentBox",
+          "field_name": "comment"
+        }
+      },
+      "value": "Demo review completed."
+    },
+    {
+      "kind": "set_checked",
+      "action_id": "act_example000002",
+      "sequence": 1,
+      "page": {
+        "target_alias": "helpdesk-demo",
+        "path": "/tickets/4/",
+        "record_ref": "review"
+      },
+      "locator": {
+        "strategy": "role",
+        "role": "radio",
+        "name": "Resolved",
+        "fallback": {
+          "tag": "input",
+          "input_type": "radio",
+          "element_id": "st_resolved",
+          "field_name": "new_status"
+        }
+      },
+      "checked": true
+    }
+  ],
+  "content_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+}

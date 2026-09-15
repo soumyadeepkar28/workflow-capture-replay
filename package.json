@@ -1,0 +1,27 @@
+{
+  "name": "workflow-capture-replay",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@10.5.0",
+  "engines": {
+    "node": ">=20.12 <21"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3"
+  },
+  "workspaces": [
+    "apps/extension",
+    "apps/portal",
+    "packages/protocol-ts"
+  ],
+  "scripts": {
+    "protocol:schema": "PYTHONPATH=packages/protocol/src .venv/bin/python packages/protocol/scripts/export_schema.py",
+    "protocol:types": "npm --workspace @workflow/protocol run generate:types",
+    "protocol:generate": "npm run protocol:schema && npm run protocol:types",
+    "protocol:typecheck": "npm --workspace @workflow/protocol run typecheck",
+    "protocol:test:ts": "npm --workspace @workflow/protocol run test",
+    "portal:build": "npm --workspace @workflow/portal run build",
+    "extension:build": "npm --workspace @workflow/extension run build",
+    "extension:typecheck": "npm --workspace @workflow/extension run typecheck"
+  }
+}

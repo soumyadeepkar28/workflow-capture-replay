@@ -1,0 +1,57 @@
+{
+  "cases": [
+    {
+      "name": "valid",
+      "expected_valid": true,
+      "changes": []
+    },
+    {
+      "name": "sequence-gap",
+      "expected_valid": false,
+      "python_error": "action sequences must be contiguous",
+      "typescript_error": "action sequences must be contiguous",
+      "changes": [
+        {
+          "path": ["actions", 1, "sequence"],
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "duplicate-action-id",
+      "expected_valid": false,
+      "python_error": "action IDs must be unique",
+      "typescript_error": "action IDs must be unique",
+      "changes": [
+        {
+          "path": ["actions", 1, "action_id"],
+          "value": "act_example000001"
+        }
+      ]
+    },
+    {
+      "name": "unsafe-path",
+      "expected_valid": false,
+      "python_error": "normalized relative target path",
+      "typescript_error": "normalized relative target path",
+      "changes": [
+        {
+          "path": ["actions", 0, "page", "path"],
+          "value": "/view/../admin/"
+        }
+      ]
+    },
+    {
+      "name": "arbitrary-script",
+      "expected_valid": false,
+      "python_error": "Extra inputs are not permitted",
+      "typescript_error": "additional properties",
+      "changes": [
+        {
+          "path": ["actions", 0, "script"],
+          "value": "alert('no')"
+        }
+      ]
+    }
+  ]
+}

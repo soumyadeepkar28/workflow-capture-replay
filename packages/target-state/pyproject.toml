@@ -1,0 +1,10 @@
+[project]
+name = "workflow-target-state"
+version = "0.1.0"
+description = "Local Django Helpdesk lifecycle and session state"
+requires-python = ">=3.13,<3.14"
+dependencies = []
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"

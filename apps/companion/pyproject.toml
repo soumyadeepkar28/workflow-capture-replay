@@ -1,0 +1,18 @@
+[project]
+name = "workflow-companion"
+version = "0.1.0"
+description = "Local browser replay companion"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "httpx>=0.28,<1",
+    "playwright==1.62.0",
+    "workflow-protocol",
+    "workflow-target-state",
+]
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+workflow-companion = "workflow_companion.service:main"

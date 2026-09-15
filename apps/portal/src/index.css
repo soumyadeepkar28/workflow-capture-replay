@@ -1,0 +1,33 @@
+:root {
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #1d2924;
+  background-color: #f1f4f1;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --ink: #1d2924;
+  --muted: #66726c;
+  --paper: #ffffff;
+  --surface: #f1f4f1;
+  --line: #dce3df;
+  --line-strong: #cbd5d0;
+  --green: #266451;
+  --green-dark: #1d4c3e;
+  --green-soft: #edf7f1;
+  --rust: #9a4933;
+}
+* { box-sizing: border-box; }
+html { min-width: 320px; background: var(--surface); }
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--surface);
+  background-image: linear-gradient(rgba(38, 100, 81, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(38, 100, 81, .035) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
