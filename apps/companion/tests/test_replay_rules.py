@@ -1,6 +1,6 @@
 import asyncio
 from pathlib import Path
-from subprocess import CompletedProcess
+from subprocess import DEVNULL, CompletedProcess
 
 import pytest
 
@@ -133,9 +133,15 @@ def test_target_command_failure_preserves_bounded_diagnostics(
     tmp_path: Path,
 ) -> None:
     diagnostic = "x" * 1_400
+    captured: dict[str, object] = {}
+
+    def fake_run(*args: object, **kwargs: object) -> CompletedProcess[str]:
+        captured.update(kwargs)
+        return CompletedProcess(args[0], 1, "", diagnostic)
+
     monkeypatch.setattr(
         "workflow_companion.replay.subprocess.run",
-        lambda *args, **kwargs: CompletedProcess(args[0], 1, "", diagnostic),
+        fake_run,
     )
     executor = ReplayExecutor(None, tmp_path)  # type: ignore[arg-type]
 
@@ -145,6 +151,7 @@ def test_target_command_failure_preserves_bounded_diagnostics(
     assert "target stop failed with exit code 1" in str(caught.value)
     assert str(caught.value).endswith("x" * 1_200)
     assert len(str(caught.value)) < 1_300
+    assert captured["stdin"] is DEVNULL
 
 
 def test_replay_pacing_applies_only_to_headed_browser(

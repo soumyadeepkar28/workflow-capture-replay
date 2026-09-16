@@ -179,6 +179,7 @@ class TargetRuntime:
             cwd=self.project_root,
             env=self._environment(),
             check=False,
+            stdin=subprocess.DEVNULL,
             capture_output=True,
             text=True,
         )
@@ -199,6 +200,7 @@ class TargetRuntime:
             [sys.executable, str(self.project_root / "scripts" / "target.py"), "serve"],
             cwd=self.project_root,
             env=self._environment(),
+            stdin=subprocess.DEVNULL,
             stdout=log,
             stderr=subprocess.STDOUT,
             text=True,

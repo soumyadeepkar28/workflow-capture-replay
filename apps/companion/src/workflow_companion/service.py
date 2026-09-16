@@ -46,6 +46,7 @@ def open_in_chrome(url: str) -> None:
         result = subprocess.run(
             ["open", "-a", "Google Chrome", url],
             check=False,
+            stdin=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
@@ -234,6 +235,7 @@ def start(root: Path) -> None:
             [sys.executable, "-m", "workflow_companion.service", "daemon"],
             cwd=root,
             env=os.environ.copy(),
+            stdin=subprocess.DEVNULL,
             stdout=log,
             stderr=subprocess.STDOUT,
             start_new_session=True,
